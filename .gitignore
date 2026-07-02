@@ -1,0 +1,13 @@
+# Newman / test output
+newman/
+*.log
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

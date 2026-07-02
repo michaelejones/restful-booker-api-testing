@@ -1,0 +1,44 @@
+name: API Tests (Newman)
+
+# Runs the Restful Booker Postman collection via Newman on every push and PR
+# to main, and on demand. Publishes the htmlextra report as a build artifact.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:        # lets you trigger a run manually from the Actions tab
+
+jobs:
+  api-tests:
+    name: Run Restful Booker collection
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Newman and the htmlextra reporter
+        run: npm install -g newman newman-reporter-htmlextra
+
+      - name: Run API tests
+        run: |
+          newman run collections/Restful_Booker.postman_collection.json \
+            -e environments/Production.postman_environment.json \
+            -r cli,htmlextra \
+            --reporter-htmlextra-export newman/report.html
+
+      # Uploads even when the tests fail — that's exactly when you want the report.
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-html-report
+          path: newman/report.html
+          retention-days: 30
