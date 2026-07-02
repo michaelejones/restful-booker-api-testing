@@ -1,6 +1,6 @@
 # Restful Booker — API Test Suite
 
-![API Tests](https://github.com/<your-username>/restful-booker-api-testing/actions/workflows/newman.yml/badge.svg)
+![API Tests](https://github.com/michaelejones/restful-booker-api-testing/actions/workflows/newman.yml/badge.svg)
 
 An automated API test suite for the [Restful Booker](https://restful-booker.herokuapp.com/) API, built with Postman and run in CI with Newman. The suite exercises a complete CRUD lifecycle with token-based authentication, data-driven request chaining, and both positive and negative-path assertions.
 
